@@ -16,9 +16,12 @@ const submissionSchema = new mongoose.Schema(
       trim: true,
     },
     // Numeric grade assigned by the teacher after review; null until graded.
+    // Valid range is 0–100.
     grade: {
       type: Number,
       default: null,
+      min: [0, "Grade cannot be less than 0"],
+      max: [100, "Grade cannot exceed 100"],
     },
     // Optional teacher feedback comment.
     feedback: {

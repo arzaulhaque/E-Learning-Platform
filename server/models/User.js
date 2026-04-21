@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      match: [/^\S+@\S+\.\S+$/, "Please provide a valid email address"],
+      match: [
+        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Please provide a valid email address",
+      ],
     },
     // Password is stored as a bcrypt hash; plain-text password is never persisted.
     password: {

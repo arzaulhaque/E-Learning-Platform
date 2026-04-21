@@ -25,13 +25,6 @@ const courseSchema = new mongoose.Schema(
         ref: "Lecture",
       },
     ],
-    // Array of student user IDs enrolled in this course.
-    enrolledStudents: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
     // Flag that allows admins to approve or reject new courses before they go live.
     isApproved: {
       type: Boolean,
