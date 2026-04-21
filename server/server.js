@@ -22,12 +22,17 @@ app.get("/api/health", (req, res) => {
 });
 
 const startServer = async () => {
-  // Connect to MongoDB before accepting incoming requests.
-  await connectDB();
+  try {
+    // Connect to MongoDB before accepting incoming requests.
+    await connectDB();
 
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error(`Server startup failed: ${error.message}`);
+    process.exit(1);
+  }
 };
 
 startServer();
