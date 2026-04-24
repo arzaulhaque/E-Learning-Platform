@@ -17,7 +17,7 @@ const addLecture = async (req, res) => {
   }
 
   try {
-    const course = await Course.findById(courseId);
+    const course = await Course.findById(String(courseId));
 
     if (!course) {
       return res

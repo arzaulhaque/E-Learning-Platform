@@ -69,10 +69,9 @@ const getCourseById = async (req, res) => {
         .json({ success: false, message: "Course not found" });
     }
 
-    // Non-admin/teacher users may only view approved courses.
+    // Unapproved courses are only visible to admin and teacher roles.
     if (
       !course.isApproved &&
-      req.user &&
       req.user.role !== "admin" &&
       req.user.role !== "teacher"
     ) {
