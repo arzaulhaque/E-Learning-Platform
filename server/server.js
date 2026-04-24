@@ -6,6 +6,8 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const lectureRoutes = require("./routes/lectureRoutes");
+const enrollmentRoutes = require("./routes/enrollmentRoutes");
+const assignmentRoutes = require("./routes/assignmentRoutes");
 
 // Load environment variables from .env file.
 dotenv.config();
@@ -45,6 +47,10 @@ app.use("/api/auth", authRoutes);
 // Course and lecture routes.
 app.use("/api/courses", courseRoutes);
 app.use("/api/lectures", lectureRoutes);
+
+// Enrollment and assignment routes.
+app.use("/api/enrollments", enrollmentRoutes);
+app.use("/api/assignments", assignmentRoutes);
 
 const startServer = async () => {
   try {
