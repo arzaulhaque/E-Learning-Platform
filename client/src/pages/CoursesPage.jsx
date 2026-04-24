@@ -16,10 +16,10 @@ export default function CoursesPage() {
     try {
       const [coursesRes, enrollRes] = await Promise.all([
         api.get('/courses'),
-        user?.role === 'student' ? api.get('/enrollments/my') : Promise.resolve({ data: [] }),
+        user?.role === 'student' ? api.get('/enrollments/my') : Promise.resolve({ data: { data: [] } }),
       ])
-      setCourses(coursesRes.data)
-      setEnrollments(enrollRes.data)
+      setCourses(coursesRes.data.data)
+      setEnrollments(enrollRes.data.data)
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to load courses.')
     } finally {

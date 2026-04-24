@@ -11,7 +11,7 @@ function LectureSection({ courseId }) {
   async function fetchLectures() {
     try {
       const { data } = await api.get(`/lectures/course/${courseId}`)
-      setLectures(data)
+      setLectures(data.data)
     } catch {
       // silently fail
     }
@@ -106,7 +106,7 @@ function AssignmentSection({ courseId }) {
   async function fetchAssignments() {
     try {
       const { data } = await api.get(`/assignments/course/${courseId}`)
-      setAssignments(data)
+      setAssignments(data.data)
     } catch {
       // silently fail
     }
@@ -278,7 +278,7 @@ function EnrolledStudents({ courseId }) {
 
   useEffect(() => {
     api.get(`/enrollments/course/${courseId}`)
-      .then(({ data }) => setStudents(data))
+      .then(({ data }) => setStudents(data.data))
       .catch(() => {})
   }, [courseId])
 
@@ -314,7 +314,7 @@ export default function TeacherDashboard() {
     setLoading(true)
     try {
       const { data } = await api.get('/courses')
-      const myCourses = data.filter((c) => {
+      const myCourses = data.data.filter((c) => {
         const teacherId = c.teacherId?._id || c.teacherId
         return teacherId === user?._id
       })

@@ -19,10 +19,11 @@ export function AuthProvider({ children }) {
     setLoading(true)
     try {
       const { data } = await api.post('/auth/login', { email, password })
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      setToken(data.token)
-      setUser(data.user)
+      const { token, ...user } = data.data
+      localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(user))
+      setToken(token)
+      setUser(user)
     } finally {
       setLoading(false)
     }
@@ -32,10 +33,11 @@ export function AuthProvider({ children }) {
     setLoading(true)
     try {
       const { data } = await api.post('/auth/register', { name, email, password, role })
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      setToken(data.token)
-      setUser(data.user)
+      const { token, ...user } = data.data
+      localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(user))
+      setToken(token)
+      setUser(user)
     } finally {
       setLoading(false)
     }

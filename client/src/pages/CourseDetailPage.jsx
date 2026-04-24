@@ -22,9 +22,9 @@ export default function CourseDetailPage() {
         api.get(`/lectures/course/${id}`),
         api.get(`/assignments/course/${id}`),
       ])
-      setCourse(courseRes.data)
-      setLectures(lecturesRes.data)
-      setAssignments(assignmentsRes.data)
+      setCourse(courseRes.data.data)
+      setLectures(lecturesRes.data.data)
+      setAssignments(assignmentsRes.data.data)
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to load course.')
     } finally {

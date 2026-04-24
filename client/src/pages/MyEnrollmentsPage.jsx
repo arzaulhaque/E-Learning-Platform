@@ -11,7 +11,7 @@ export default function MyEnrollmentsPage() {
     setLoading(true)
     try {
       const { data } = await api.get('/enrollments/my')
-      setEnrollments(data)
+      setEnrollments(data.data)
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to load enrollments.')
     } finally {

@@ -10,7 +10,7 @@ export default function AdminDashboard() {
     setLoading(true)
     try {
       const { data } = await api.get('/courses')
-      setCourses(data)
+      setCourses(data.data)
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to load courses.')
     } finally {
