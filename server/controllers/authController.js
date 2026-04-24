@@ -7,7 +7,13 @@ const generateToken = require("../utils/generateToken");
  * @access Public
  */
 const register = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, password, role } = req.body;
+
+  // Coerce email to string to prevent NoSQL operator injection.
+  const email =
+    req.body.email && typeof req.body.email === "string"
+      ? req.body.email
+      : null;
 
   // Validate required fields.
   if (!name || !email || !password) {
@@ -19,7 +25,7 @@ const register = async (req, res) => {
 
   try {
     // Prevent duplicate accounts.
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: String(email) });
     if (existingUser) {
       return res
         .status(409)
@@ -50,7 +56,13 @@ const register = async (req, res) => {
  * @access Public
  */
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { password } = req.body;
+
+  // Coerce email to string to prevent NoSQL operator injection.
+  const email =
+    req.body.email && typeof req.body.email === "string"
+      ? req.body.email
+      : null;
 
   // Validate required fields.
   if (!email || !password) {
@@ -61,7 +73,9 @@ const login = async (req, res) => {
 
   try {
     // Explicitly select password because the schema hides it by default.
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email: String(email) }).select(
+      "+password"
+    );
     if (!user) {
       return res
         .status(401)
