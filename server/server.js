@@ -3,6 +3,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const courseRoutes = require("./routes/courseRoutes");
+const lectureRoutes = require("./routes/lectureRoutes");
 
 // Load environment variables from .env file.
 dotenv.config();
@@ -24,6 +26,10 @@ app.get("/api/health", (req, res) => {
 
 // Auth routes — register and login.
 app.use("/api/auth", authRoutes);
+
+// Course and lecture routes.
+app.use("/api/courses", courseRoutes);
+app.use("/api/lectures", lectureRoutes);
 
 const startServer = async () => {
   try {
