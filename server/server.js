@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
 
 // Load environment variables from .env file.
 dotenv.config();
@@ -20,6 +21,9 @@ app.get("/api/health", (req, res) => {
     message: "E-Learning API is running",
   });
 });
+
+// Auth routes — register and login.
+app.use("/api/auth", authRoutes);
 
 const startServer = async () => {
   try {
